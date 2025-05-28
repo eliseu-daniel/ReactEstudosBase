@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Fundamentos</title>
+</head>
+<body>
+    
+    <div id="root"></div>
+    
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        // Define um objeto que mapeia variantes do botão para classes CSS do Tailwind
+        // Cada chave (default, primary) corresponde a uma variante de estilo
+        const buttonVariant = {
+            default: 'bg-gray-500', 
+            primary: 'bg-purple-500'
+        }
+
+        // Componente funcional Button que renderiza um botão personalizável
+        // Recebe props: variant (estilo do botão), className (classes CSS adicionais), children (conteúdo do botão) e outras props
+        function Button({ variant = 'default', className, children, ...props }) {
+            return (
+                <button 
+                    // A prop className combina várias classes CSS:
+                    // - buttonVariant[variant]: classe da variante escolhida (ex.: bg-gray-500 ou bg-purple-500)
+                    // - className: classes adicionais passadas via prop
+                    className={`
+                        px-3 py-3 bg-purple-500 rounded text-white
+                        ${buttonVariant[variant]}
+                        ${className}
+                    `}
+                    // Spread operator (...props) passa todas as outras props (ex.: type, title, onClick) para o elemento <button>
+                    {...props}
+                >
+                    {/* Renderiza o conteúdo do botão (ex.: texto ou outros elementos) */}
+                    {children}
+                </button>
+            )
+        }
+
+        // Componente principal App que renderiza a aplicação
+        function App() {
+            return (
+                <main className="flex gap-2 p-3">
+                    {/* Primeiro botão:
+                        - type="button": define o tipo do botão (evita comportamento de submit em formulários)
+                        - title="Meu botao": adiciona um tooltip com o texto "Meu botao"
+                        - className="mr-14": adiciona margem à direita de 3.5rem
+                        - Usa a variante padrão (default) implicitamente, aplicando bg-gray-500
+                    */}
+                    <Button type="button" title="Meu botao" className="mr-14">
+                        Meu botao
+                    </Button>
+
+                    {/* Segundo botão:
+                        - variant="primary": usa a variante primary, aplicando bg-purple-500
+                        - Não especifica outras props como type ou className
+                    */}
+                    <Button variant="primary">
+                        Outro Botao
+                    </Button>
+                </main>
+            )
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(
+            <App />
+        )
+    </script>
+</body>
+</html>
