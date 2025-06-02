@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Fundamentos</title>
+</head>
+<body>
+    
+    <div id="root"></div>
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <script type="text/babel">
+
+        function Events(){
+            function handle(){
+                alert("botao clicado")
+            }
+            return (
+           <button onClick={handle}>Clique</button> 
+        )
+        }
+
+        function EventsDados(){
+            function handleClick(msg){
+                alert(msg)
+            }
+            return(
+                <button onClick={() => handleClick('ola pessoa')}>Clique 2</button>
+            )
+        }
+
+        function PassarDados(){
+            function handle(event){
+                alert(event.target.previousSibling.value)
+            }
+            return (
+                <>
+                <input type="text" placeholder="escreva algo"/>
+                <button onClick={handle}>Dados</button>
+                </>
+            )
+        }
+
+        function App(){
+            return(
+                <main>
+                    <Events />
+                    <EventsDados />
+                    <PassarDados />
+                </main>
+            )
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(
+            <App />
+        )
+    </script>
+</body>
+</html>
