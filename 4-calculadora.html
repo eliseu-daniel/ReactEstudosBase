@@ -158,21 +158,30 @@
         }
 
         function Calculator(){
+            const [operation, setOperation] = React.useState('');
+
+            function handleInputClick(input){
+                setOperation(`${operation} ${input}`);
+            }
             return(
                 <Card className = {`
                         flex flex-col gap-[1.625rem] w-[22.25rem]
                         pt-14 px-8 pb-8
                     `}
                 >
-                    <DisplayCalculator calculation="1 + 1" result="2" />    
+                    <DisplayCalculator calculation={operation} result="" />    
 
                     <div className="flex flex-col gap-3">
                         {buttons.map((row, index) => (
                                 <div key= {`row-${index}`}className="flex gap-3">
                                     {row.map(button => (
                                         <Button key={button.input}
-                                        className={button.className ||"w-16 h-16"}
-                                        variant={button.variant}>{button.input}</Button>
+                                            className={button.className ||"w-16 h-16"}
+                                            variant={button.variant}
+                                            onClick={() => handleInputClick(button.input)}
+                                        >
+                                            {button.input}
+                                        </Button>
                                     ))}
                                 </div>
                             )
